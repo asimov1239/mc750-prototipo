@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://dujphou0ikoud"]
+
+[ext_resource type="Script" path="res://scroll_screen.gd" id="1_u6m0j"]
+[ext_resource type="Texture2D" uid="uid://d4bh4jav7d2ee" path="res://img/monalisa1418x2145.jpg" id="2_2lttq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4i3x8"]
+border_width_left = 60
+border_width_right = 60
+
+[node name="ScrollScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u6m0j")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1418, 2145)
+layout_mode = 0
+offset_left = -760.0
+offset_top = -539.0
+offset_right = 658.0
+offset_bottom = 1606.0
+texture = ExtResource("2_2lttq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 32.0
+offset_right = 1888.0
+offset_bottom = 1048.0
+
+[node name="ResolutionLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Quantidade de árvores perdidas:"
+
+[node name="PixelLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Resolução da imagem:"
+justification_flags = 227
+
+[node name="AreaLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Area aproximada perdida em km2: 215000"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="HScrollBar" type="HScrollBar" parent="CanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1800, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/grabber = SubResource("StyleBoxFlat_4i3x8")
+min_value = 1970.0
+max_value = 2324.0
+step = 2.0
+value = 1970.0
+
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="YearLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -331.0
+offset_bottom = 88.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 64
+text = "Ano atual: "
+
+[node name="PlayButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
