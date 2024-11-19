@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvj15xxewxsyv"]
+
+[ext_resource type="PackedScene" uid="uid://dujphou0ikoud" path="res://scroll_screen.tscn" id="1_0xxn7"]
+[ext_resource type="Script" path="res://menu.gd" id="1_fk64x"]
+[ext_resource type="PackedScene" uid="uid://7donq6nh2xu3" path="res://timelapse_screen.tscn" id="2_plx0k"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fk64x")
+
+[node name="ScrollScreen" parent="." instance=ExtResource("1_0xxn7")]
+layout_mode = 1
+
+[node name="Time" parent="." instance=ExtResource("2_plx0k")]
+layout_mode = 1

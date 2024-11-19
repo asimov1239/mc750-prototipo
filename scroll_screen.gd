@@ -3,6 +3,7 @@ extends Control
 
 const MONA_LISA_HD_RATION = 1.512693935119887165021
 
+@onready var camera_2d: Camera2D = $Camera2D
 
 @onready var texture: TextureRect = $TextureRect
 @onready var h_scroll_bar: HScrollBar = %HScrollBar
@@ -32,7 +33,7 @@ func _ready() -> void:
 		texture.texture = texture_convert
 		)
 
-a\sdasdsad
+
 ## função que muda a resolução da imagem
 func change_image_resolution(imagem : Image) -> void:
 	var new_size = calculate_resize(imagem)
@@ -41,6 +42,7 @@ func change_image_resolution(imagem : Image) -> void:
 	area_label.text = "Area aproximada perdida em km2: " + str(((h_scroll_bar.value - h_scroll_bar.min_value) * 20000) + 215000)
 	pixel_label.text = "Pixels na tela: " + str(imagem.get_size().x * imagem.get_size().y)
 	year_label.text = str(h_scroll_bar.value)
+
 
 
 func calculate_resize(imagem : Image) -> Vector2:
@@ -57,8 +59,29 @@ func calculate_resize(imagem : Image) -> Vector2:
 
 
 func play_scroll_tween() -> void:
-	pass
+	if scroll_tween: scroll_tween.kill()
+	scroll_tween = create_tween()
+	#scroll_tween.tween_property(h_scroll_bar, "value", 2300, 30)
+	scroll_tween.tween_method(func(value):
+		h_scroll_bar.value = value
+		h_scroll_bar.scrolling.emit()
+		, h_scroll_bar.value, 2324, 30
+		)
 
 
-func calculate_tree_loss(imagem : Image) -> int:
-	return (og_image.get_width() * og_image.get_height() - imagem.get_width() * imagem.get_height())
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		event = event as InputEventKey
+		if event.keycode == KEY_W:
+			camera_2d.global_position.y -= 5
+		if event.keycode == KEY_S:
+			camera_2d.global_position.y += 5
+	if event is InputEventMouseButton:
+		event = event as InputEventMouseButton
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			#camera_2d.position = get_global_mouse_position()
+			camera_2d.zoom += Vector2(0.01, 0.01)
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			#camera_2d.position = get_global_mouse_position()
+			camera_2d.zoom -= Vector2(0.01, 0.01)

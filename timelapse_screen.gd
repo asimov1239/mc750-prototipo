@@ -7,6 +7,9 @@ extends Control
 @onready var time_elapsed: Label = %TimeElapsed
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var red_dots: Label = %RedDots
+@onready var area_label: Label = %AreaLabel
+@onready var tree_lost_label: RichTextLabel = %TreeLostLabel
+@onready var year_label: Label = %YearLabel
 
 var og_image : Image
 var timelapse_tween : Tween
@@ -23,12 +26,14 @@ func start_timelapse() -> void:
 	if timelapse_tween: timelapse_tween.kill()
 	timelapse_tween = create_tween()
 	timelapse_tween.tween_method(dot_single_point, 0, og_image.get_width() * og_image.get_height(), INF)
-	
 
 
 func _process(delta: float) -> void:
+	area_label.text = "Area Perdida em KM2: " + str(215000 + (red_dots_n * 3))
 	if timelapse_tween:
 		time_elapsed.text = str(int(timelapse_tween.get_total_elapsed_time()))
+		tree_lost_label.text = "Desde o começo dessa atividade [color=red]" + str(int(timelapse_tween.get_total_elapsed_time()) * 21) + " árvores [/color] foram perdidas."
+		year_label.text = str(1970 + (3 * red_dots_n * 1/25000))
 
 
 func _input(event: InputEvent) -> void:
@@ -54,5 +59,5 @@ func dot_single_point(_value) -> void:
 	imagem.set_pixelv(randon_pixel_pos, Color.RED)
 	texture_rect.texture = ImageTexture.create_from_image(imagem)
 	red_dots_n += 1
-	red_dots.text = "Número de Pontos Vermelho: " + str(red_dots_n)
+	red_dots.text = "Número de Pixels Vermelhos: " + str(red_dots_n)
 	
